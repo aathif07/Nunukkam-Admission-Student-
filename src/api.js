@@ -1,0 +1,26 @@
+import axios from 'axios';
+
+const API_BASE = 'http://localhost:4000/api';
+
+const api = axios.create({ baseURL: API_BASE });
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('eis_token');
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+api.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    // Only redirect if NOT on the login page and it's a 401
+    if (err.response?.status === 401 && !err.config.url.includes('/auth/login')) {
+      localStorage.removeItem('eis_token');
+      localStorage.removeItem('eis_user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(err);
+  }
+);
+
+export default api;
