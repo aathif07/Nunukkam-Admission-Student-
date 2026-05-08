@@ -1,8 +1,17 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+let envApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL;
 
-if (API_BASE.includes('localhost') && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+// Ensure it ends with /api if it's provided but missing the path
+if (envApiUrl && !envApiUrl.endsWith('/api')) {
+  envApiUrl = envApiUrl.replace(/\/$/, '') + '/api';
+}
+
+let API_BASE = envApiUrl || 'http://localhost:4000/api';
+
+if (API_BASE.includes('localhost') && window.location.hostname === 'demoenrollment.nunukkam.com') {
+  API_BASE = 'http://demoenrollmentbackend.nunukkam.com/api';
+} else if (API_BASE.includes('localhost') && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
   console.error("🚨 CRITICAL: Frontend is trying to connect to a localhost API from a production domain. Please set the VITE_API_URL environment variable in Dokploy (under Environment) and rebuild the frontend.");
 }
 
