@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { CheckCircle, ArrowLeft, ArrowRight, ShieldCheck, Zap, Award, BookOpen, Clock, AlertCircle } from 'lucide-react';
 
-const API = 'http://localhost:4000/api';
+const API = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
 const LIKERT = ['Not at all', 'Rarely', 'Sometimes', 'Often', 'Always'];
 
 export default function Assessment() {
