@@ -91,9 +91,9 @@ export default function PublicRegister() {
       <div style={{ maxWidth: 800, margin: '0 auto' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: 'white', padding: '12px 28px', borderRadius: 60, boxShadow: '0 4px 20px rgba(106,28,154,0.1)', marginBottom: 16 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 10, background: 'linear-gradient(135deg, #6A1C9A, #8B5CF6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><UserPlus size={18} color="white" /></div>
-            <span style={{ fontSize: 18, fontWeight: 800, color: '#6A1C9A' }}>Nunukkam Academy</span>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: 'white', padding: '12px 28px', borderRadius: 60, boxShadow: '0 4px 20px rgba(107,30,162,0.1)', marginBottom: 16 }}>
+            <div style={{ width: 36, height: 36, borderRadius: 10, background: 'linear-gradient(135deg, #6B1EA2, #6B1EA2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><UserPlus size={18} color="white" /></div>
+            <span style={{ fontSize: 18, fontWeight: 800, color: '#6B1EA2' }}>Nunukkam Academy</span>
           </div>
           <h1 style={{ fontSize: 26, fontWeight: 800, color: '#1f2937', marginBottom: 4 }}>Student Registration Form</h1>
           <p style={{ fontSize: 14, color: '#6b7280' }}>Complete all steps to register for your desired program</p>
@@ -103,8 +103,8 @@ export default function PublicRegister() {
         <div style={{ display: 'flex', gap: 4, marginBottom: 24, padding: '0 8px' }}>
           {STEPS.map((s, i) => (
             <div key={i} style={{ flex: 1, cursor: 'pointer' }} onClick={() => setStep(i)}>
-              <div style={{ height: 4, borderRadius: 4, background: i <= step ? 'linear-gradient(90deg, #6A1C9A, #8B5CF6)' : '#e5e7eb', transition: 'all 0.3s' }} />
-              <div style={{ fontSize: 10, fontWeight: 600, color: i <= step ? '#6A1C9A' : '#9ca3af', textAlign: 'center', marginTop: 6, display: 'none' }}>{s.label}</div>
+              <div style={{ height: 4, borderRadius: 4, background: i <= step ? 'linear-gradient(90deg, #6B1EA2, #6B1EA2)' : '#e5e7eb', transition: 'all 0.3s' }} />
+              <div style={{ fontSize: 10, fontWeight: 600, color: i <= step ? '#6B1EA2' : '#9ca3af', textAlign: 'center', marginTop: 6, display: 'none' }}>{s.label}</div>
             </div>
           ))}
         </div>
@@ -113,7 +113,7 @@ export default function PublicRegister() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div style={{ background: 'white', borderRadius: 20, boxShadow: '0 8px 40px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
             <div style={{ padding: '28px 32px', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', gap: 12 }}>
-              {(() => { const Icon = STEPS[step].icon; return <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(135deg, #6A1C9A, #8B5CF6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon size={20} color="white" /></div>; })()}
+              {(() => { const Icon = STEPS[step].icon; return <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(135deg, #6B1EA2, #6B1EA2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon size={20} color="white" /></div>; })()}
               <div><h2 style={{ fontSize: 18, fontWeight: 700, color: '#1f2937', margin: 0 }}>{STEPS[step].label}</h2><p style={{ fontSize: 12, color: '#9ca3af', margin: 0 }}>Step {step + 1} of {STEPS.length}</p></div>
             </div>
             <div style={{ padding: '28px 32px', minHeight: 320 }}>
@@ -226,7 +226,7 @@ export default function PublicRegister() {
               {step < STEPS.length - 1 ? (
                 <button type="button" className="btn btn-primary" onClick={() => setStep(s => Math.min(s+1,STEPS.length-1))}>Next <ChevronRight size={16} /></button>
               ) : (
-                <button type="submit" className="btn btn-primary btn-lg" disabled={submitting} style={{ background: 'linear-gradient(135deg, #6A1C9A, #8B5CF6)', borderRadius: 14 }}>
+                <button type="submit" className="btn btn-primary btn-lg" disabled={submitting} style={{ background: 'linear-gradient(135deg, #6B1EA2, #6B1EA2)', borderRadius: 14 }}>
                   {submitting ? <span className="spinner" /> : <><CheckCircle size={18} /> Submit Registration</>}
                 </button>
               )}

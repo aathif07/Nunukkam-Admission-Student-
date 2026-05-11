@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
-import { Users, ClipboardCheck, GraduationCap, IndianRupee, Handshake, TrendingUp, ArrowRight, UserPlus, Clock, Zap, Target, LayoutDashboard, Layers, Sparkles, Activity, PieChart as PieIcon, BarChart3, Search, Calendar, Filter } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
+import { Users, ClipboardCheck, GraduationCap, IndianRupee, ArrowRight, UserPlus, Clock, Zap, Layers, Activity, PieChart as PieIcon, TrendingUp, Filter, ChevronRight, Calendar, Star, Award } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-const PURPLE_GRADIENTS = ['#4A148C', '#6A1C9A', '#7B1FA2', '#8E24AA', '#9C27B0', '#AB47BC'];
-const SOURCE_COLORS = ['#6A1C9A', '#00C49F', '#FFBB28', '#FF8042', '#0088FE'];
+const PRIMARY = '#6B1EA2';
+const BLUE = '#2563EB';
+
+// Star decoration component
+const StarDecoration = ({ className = '', style = {} }) => (
+  <div className={className} style={style}>
+    <Star size={24} fill="#FBBF24" color="#FBBF24" style={{ opacity: 0.3 }} />
+  </div>
+);
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
@@ -33,156 +40,236 @@ export default function Dashboard() {
   if (!stats) return <div className="empty-state"><h3>Could not load dashboard</h3></div>;
 
   const conversionRate = stats.totalLeads > 0 ? ((stats.enrolledLeads / stats.totalLeads) * 100).toFixed(1) : 0;
-  const statusDistribution = stats.statusDistribution?.map((s, i) => ({ 
-    name: s.status.replace(/_/g, ' '), 
-    value: s.count, 
-    fill: PURPLE_GRADIENTS[i % PURPLE_GRADIENTS.length] 
+  const statusDistribution = stats.statusDistribution?.map((s, i) => ({
+    name: s.status.replace(/_/g, ' '),
+    value: s.count,
+    fill: PRIMARY
   })) || [];
 
-  // Real Source Data from stats
-  const sourceData = stats.sourceDistribution?.length > 0 
+  const sourceData = stats.sourceDistribution?.length > 0
     ? stats.sourceDistribution.map(s => ({ name: s.source, value: s.count }))
     : [{ name: 'Direct/Other', value: 0 }];
 
+  const sourceColors = ['#6B1EA2', '#2563EB', '#10B981', '#F59E0B', '#EF4444'];
+
   return (
-    <div className="animate-in" style={{ color: 'var(--gray-900)', paddingBottom: 60 }}>
-      {/* Dynamic Header */}
-      <div style={{ 
-        background: 'linear-gradient(135deg, #38006B 0%, #6A1C9A 100%)', 
-        borderRadius: '24px', padding: '48px 40px', marginBottom: 32, color: 'white', 
-        boxShadow: '0 25px 50px -12px rgba(74, 20, 140, 0.5)', position: 'relative', overflow: 'hidden' 
+    <div className="animate-in" style={{ color: 'var(--gray-900)', paddingBottom: 60, background: '#F8FAFC' }}>
+      {/* Welcome Section - Modern Premium Banner */}
+      <div className="card" style={{
+        borderRadius: 24,
+        padding: '36px 40px',
+        marginBottom: 28,
+        border: 'none',
+        background: 'linear-gradient(135deg, #6B1EA2 0%, #8B5CF6 50%, #A78BFA 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+        minHeight: 180
       }}>
-        <div style={{ position: 'absolute', top: -100, right: -100, width: 300, height: 300, borderRadius: '50%', background: 'rgba(255,255,255,0.03)', filter: 'blur(40px)' }} />
-        <div style={{ position: 'absolute', bottom: -50, left: '20%', width: 150, height: 150, borderRadius: '50%', background: 'rgba(255,255,255,0.05)', filter: 'blur(20px)' }} />
-        
-        <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        {/* Abstract UI Elements - Right Side */}
+        {/* Large rounded blob 1 */}
+        <div style={{
+          position: 'absolute',
+          top: -60,
+          right: -40,
+          width: 280,
+          height: 280,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%)',
+          filter: 'blur(40px)'
+        }} />
+        {/* Large rounded blob 2 */}
+        <div style={{
+          position: 'absolute',
+          bottom: -80,
+          right: 100,
+          width: 200,
+          height: 200,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(167,139,250,0.3) 0%, rgba(167,139,250,0) 70%)',
+          filter: 'blur(30px)'
+        }} />
+        {/* Floating glow circles */}
+        <div style={{
+          position: 'absolute',
+          top: 30,
+          right: 80,
+          width: 60,
+          height: 60,
+          borderRadius: '50%',
+          background: 'rgba(255,255,255,0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255,255,255,0.2)'
+        }} />
+        <div style={{
+          position: 'absolute',
+          bottom: 40,
+          right: 200,
+          width: 40,
+          height: 40,
+          borderRadius: '50%',
+          background: 'rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(8px)'
+        }} />
+        {/* Star shapes with glow */}
+        <div style={{ position: 'absolute', top: 50, right: 150, opacity: 0.4 }}>
+          <Star size={20} fill="rgba(255,255,255,0.6)" color="rgba(255,255,255,0.6)" />
+        </div>
+        <div style={{ position: 'absolute', bottom: 60, right: 50, opacity: 0.3 }}>
+          <Star size={16} fill="rgba(255,255,255,0.5)" color="rgba(255,255,255,0.5)" />
+        </div>
+        {/* Curved pattern */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: 400,
+          height: 200,
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%)',
+          borderRadius: '0 120px 0 0'
+        }} />
+
+        {/* Content */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20, position: 'relative', zIndex: 1 }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-              <div style={{ background: 'rgba(255,255,255,0.15)', padding: '6px 12px', borderRadius: 100, fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1.5, display: 'flex', alignItems: 'center', gap: 6 }}>
-                <Sparkles size={14} /> LIVE OPERATIONS
-              </div>
-              <div style={{ height: 1, width: 40, background: 'rgba(255,255,255,0.3)' }} />
-              <span style={{ fontSize: 12, opacity: 0.7 }}>{new Date().toDateString()}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+              <span style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: 'white',
+                background: 'rgba(255,255,255,0.2)',
+                padding: '4px 12px',
+                borderRadius: 20,
+                letterSpacing: 0.5,
+                backdropFilter: 'blur(10px)'
+              }}>
+                DASHBOARD
+              </span>
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)' }}>{new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
             </div>
-            <h1 style={{ fontSize: 40, fontWeight: 900, marginBottom: 12, letterSpacing: '-1.5px', textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>{greeting}, Counselor!</h1>
-            <p style={{ opacity: 0.9, fontSize: 16, fontWeight: 500, maxWidth: 550, lineHeight: 1.5 }}>
-              The Nunukkam EIS is running at <span style={{ color: '#00e676', fontWeight: 800 }}>{conversionRate}% efficiency</span>. 
-              Review the {stats.newLeads} new applications to maintain momentum.
+            <h1 style={{ fontSize: 32, fontWeight: 800, color: 'white', marginBottom: 8, letterSpacing: '-0.5px' }}>
+              {greeting}! 👋
+            </h1>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.8)', maxWidth: 500, lineHeight: 1.6 }}>
+              You have <span style={{ color: '#FBBF24', fontWeight: 700 }}>{stats.newLeads} new leads</span> waiting. Your conversion rate is <span style={{ fontWeight: 700, color: 'white' }}>{conversionRate}%</span>. Keep up the great work!
             </p>
-          </div>
-          <div style={{ textAlign: 'right', display: 'none', sm: 'block' }}>
-             <Activity size={80} style={{ opacity: 0.1, marginBottom: -10 }} />
           </div>
         </div>
       </div>
 
-      {/* Primary Metrics Grid */}
-      <div className="stats-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 24, marginBottom: 32 }}>
+      {/* Stats Grid - Clean White Cards with Interactive Elements */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginBottom: 28 }}>
         {[
-          { label: 'Total Leads', value: stats.totalLeads, icon: Users, color: '#6A1C9A', trend: '+14%', sub: 'Active Pipeline' },
-          { label: 'CRI Screening', value: stats.assessedLeads, icon: ClipboardCheck, color: '#00C49F', trend: 'LIVE', sub: 'Assessments Done' },
-          { label: 'Enrollments', value: stats.enrolledLeads, icon: GraduationCap, color: '#FF8042', trend: `${conversionRate}%`, sub: 'Success Rate' },
-          { label: 'Fee Collection', value: `₹${(stats.totalRevenue || 0).toLocaleString('en-IN')}`, icon: IndianRupee, color: '#FFBB28', trend: 'SECURE', sub: 'Gross Revenue' },
+          { label: 'Total Leads', value: stats.totalLeads, icon: Users, color: PRIMARY, sub: 'All time', change: '+12%' },
+          { label: 'Screened', value: stats.assessedLeads, icon: ClipboardCheck, color: '#2563EB', sub: 'CRI Done', change: '+8%' },
+          { label: 'Enrolled', value: stats.enrolledLeads, icon: GraduationCap, color: '#10B981', sub: 'Converted', change: '+15%' },
+          { label: 'Revenue', value: `₹${(stats.totalRevenue || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`, icon: IndianRupee, color: '#F59E0B', sub: 'Collected', change: '+23%' },
         ].map((m, i) => (
-          <div key={i} className="stat-card" style={{ 
-            background: 'white', border: '1.5px solid var(--primary-50)', padding: 30, borderRadius: 28,
-            transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-            boxShadow: `0 10px 20px -5px ${m.color}15`,
-            position: 'relative', overflow: 'hidden'
+          <div key={i} className="card" style={{
+            padding: 24,
+            borderRadius: 16,
+            border: '1px solid var(--gray-100)',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+            position: 'relative',
+            overflow: 'hidden'
           }} onMouseOver={e => {
-            e.currentTarget.style.transform = 'translateY(-10px)';
-            e.currentTarget.style.boxShadow = `0 20px 40px -10px ${m.color}40`;
+            e.currentTarget.style.transform = 'translateY(-4px)';
+            e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.12)';
           }} onMouseOut={e => {
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = `0 10px 20px -5px ${m.color}15`;
+            e.currentTarget.style.boxShadow = 'none';
           }}>
-            {/* Subtle Background Glow */}
-            <div style={{ position: 'absolute', top: -20, right: -20, width: 100, height: 100, borderRadius: '50%', background: `${m.color}05`, filter: 'blur(30px)' }} />
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24 }}>
-              <div style={{ 
-                background: `linear-gradient(135deg, ${m.color}20, ${m.color}10)`, 
-                color: m.color, padding: 14, borderRadius: 18,
-                boxShadow: `inset 0 0 0 1px ${m.color}30`
+            {/* Star decoration on hover */}
+            <div style={{ position: 'absolute', top: -10, right: -10, opacity: 0, transition: 'opacity 0.3s' }} className="stat-star">
+              <Star size={40} fill="#FBBF24" color="#FBBF24" style={{ opacity: 0.2 }} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+              <div style={{
+                width: 48,
+                height: 48,
+                borderRadius: 14,
+                background: `linear-gradient(135deg, ${m.color}15, ${m.color}05)`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: m.color,
+                transition: 'all 0.2s'
               }}>
-                <m.icon size={26} />
+                <m.icon size={24} />
               </div>
-              <div style={{ 
-                fontSize: 11, fontWeight: 900, color: m.color, 
-                background: `${m.color}10`, padding: '8px 16px', borderRadius: 100,
-                backdropFilter: 'blur(4px)', border: `1px solid ${m.color}20`,
-                height: 'fit-content'
-              }}>
-                {m.trend}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                {m.change && <span style={{ fontSize: 12, fontWeight: 600, color: '#10B981' }}>{m.change}</span>}
+                <TrendingUp size={14} color="#10B981" />
               </div>
             </div>
-            <div style={{ fontSize: 40, fontWeight: 900, color: '#1A1A1A', letterSpacing: '-1.5px', marginBottom: 4 }}>{m.value}</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--gray-500)', display: 'flex', alignItems: 'center', gap: 6 }}>
-              {m.label}
-            </div>
-            <div style={{ fontSize: 12, color: 'var(--gray-400)', marginTop: 16, display: 'flex', alignItems: 'center', gap: 6, fontWeight: 500 }}>
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: m.color }} />
-              {m.sub}
-            </div>
+            <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--gray-900)', marginBottom: 4, letterSpacing: '-0.5px' }}>{m.value}</div>
+            <div style={{ fontSize: 13, color: 'var(--gray-500)', fontWeight: 500 }}>{m.label}</div>
+            <div style={{ fontSize: 11, color: m.color, marginTop: 8, fontWeight: 600 }}>{m.sub}</div>
           </div>
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24, marginBottom: 32 }}>
-        {/* Main Chart Card */}
-        <div className="card" style={{ borderRadius: 24, padding: 0, border: '1.5px solid var(--primary-50)', overflow: 'hidden' }}>
-          <div className="card-header" style={{ padding: '30px 32px', borderBottom: 'none' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <h2 style={{ fontSize: 20, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 10 }}><Activity size={20} color="var(--primary)" /> Enrollment Funnel Analysis</h2>
-                <p style={{ fontSize: 13, color: 'var(--gray-500)', marginTop: 4 }}>Real-time distribution of leads across different operational stages</p>
-              </div>
-              <button className="btn btn-icon btn-secondary"><Filter size={16} /></button>
+      {/* Charts Row */}
+      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24, marginBottom: 28 }}>
+        {/* Bar Chart */}
+        <div className="card" style={{ borderRadius: 16, padding: 0, border: '1px solid var(--gray-100)', overflow: 'hidden' }}>
+          <div style={{ padding: '24px 28px', borderBottom: '1px solid var(--gray-50)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--gray-900)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Activity size={18} color={PRIMARY} /> Lead Pipeline
+              </h3>
+              <p style={{ fontSize: 12, color: 'var(--gray-400)', marginTop: 2 }}>Status breakdown</p>
             </div>
+            <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--gray-400)', padding: 8 }}>
+              <Filter size={18} />
+            </button>
           </div>
-          <div className="card-body" style={{ padding: '0 32px 32px' }}>
-            <ResponsiveContainer width="100%" height={350}>
-              <BarChart data={statusDistribution} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+          <div style={{ padding: '0 28px 28px' }}>
+            <ResponsiveContainer width="100%" height={280}>
+              <BarChart data={statusDistribution} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="var(--primary)" stopOpacity={1}/>
-                    <stop offset="100%" stopColor="var(--primary-dark)" stopOpacity={0.8}/>
+                  <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={PRIMARY} stopOpacity={1}/>
+                    <stop offset="100%" stopColor={PRIMARY} stopOpacity={0.6}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f5f5f5" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--gray-500)', fontWeight: 600 }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--gray-500)' }} />
-                <Tooltip cursor={{ fill: '#F3E5F5' }} contentStyle={{ borderRadius: 16, border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.1)' }} />
-                <Bar dataKey="value" fill="url(#barGradient)" radius={[10, 10, 0, 0]} barSize={50} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#94a3b8', fontWeight: 500 }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#94a3b8' }} />
+                <Tooltip cursor={{ fill: '#f8fafc' }} contentStyle={{ borderRadius: 12, border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)', fontSize: 13 }} />
+                <Bar dataKey="value" fill="url(#barGrad)" radius={[8, 8, 0, 0]} barSize={40} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Source Distribution Pie */}
-        <div className="card" style={{ borderRadius: 24, padding: 0, border: '1.5px solid var(--primary-50)', overflow: 'hidden' }}>
-          <div className="card-header" style={{ padding: '30px 32px', borderBottom: 'none' }}>
-            <h2 style={{ fontSize: 18, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 10 }}><PieIcon size={20} color="var(--primary)" /> Lead Sources</h2>
+        {/* Pie Chart */}
+        <div className="card" style={{ borderRadius: 16, padding: 0, border: '1px solid var(--gray-100)', overflow: 'hidden' }}>
+          <div style={{ padding: '24px 28px', borderBottom: '1px solid var(--gray-50)' }}>
+            <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--gray-900)', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <PieIcon size={18} color={PRIMARY} /> Sources
+            </h3>
+            <p style={{ fontSize: 12, color: 'var(--gray-400)', marginTop: 2 }}>Lead origin</p>
           </div>
-          <div className="card-body" style={{ padding: '0 32px 32px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <ResponsiveContainer width="100%" height={240}>
+          <div style={{ padding: '0 28px 28px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <ResponsiveContainer width="100%" height={200}>
               <PieChart>
-                <Pie data={sourceData} innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
+                <Pie data={sourceData} innerRadius={55} outerRadius={75} paddingAngle={4} dataKey="value">
                   {sourceData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={SOURCE_COLORS[index % SOURCE_COLORS.length]} />
+                    <Cell key={`cell-${index}`} fill={sourceColors[index % sourceColors.length]} />
                   ))}
                 </Pie>
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
-            <div style={{ width: '100%', marginTop: 20 }}>
+            <div style={{ width: '100%', marginTop: 16 }}>
               {sourceData.map((s, i) => (
-                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 13 }}>
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f1f5f9', fontSize: 13 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: SOURCE_COLORS[i] }} />
-                    <span style={{ fontWeight: 600, color: 'var(--gray-700)' }}>{s.name}</span>
+                    <div style={{ width: 8, height: 8, borderRadius: 4, background: sourceColors[i] }} />
+                    <span style={{ color: 'var(--gray-600)', fontWeight: 500 }}>{s.name}</span>
                   </div>
-                  <span style={{ fontWeight: 800 }}>{s.value}</span>
+                  <span style={{ color: 'var(--gray-900)', fontWeight: 700 }}>{s.value}</span>
                 </div>
               ))}
             </div>
@@ -190,89 +277,183 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 24 }}>
-        {/* Quick Access Grid */}
+      {/* Bottom Row */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.8fr', gap: 24 }}>
+        {/* Quick Actions & Batches */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          <div className="card" style={{ background: 'var(--primary-900)', color: 'white', borderRadius: 24, border: 'none', padding: 32 }}>
-            <h2 style={{ fontSize: 20, fontWeight: 800, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 10 }}><Zap size={20} /> Rapid Actions</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16 }}>
-              <button className="btn" style={{ background: 'white', color: 'var(--primary-900)', height: 60, borderRadius: 16, fontSize: 15, fontWeight: 800, gap: 12 }} onClick={() => navigate('/enrollment')}>
-                <UserPlus size={20} /> Register New Student
+          {/* Quick Actions with Interactive Elements */}
+          <div className="card" style={{ borderRadius: 16, padding: 24, border: '1px solid var(--gray-100)', position: 'relative', overflow: 'hidden' }}>
+            {/* Decorative star */}
+            <div style={{ position: 'absolute', top: 10, right: 10, opacity: 0.15 }}>
+              <Star size={30} fill="#FBBF24" color="#FBBF24" />
+            </div>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--gray-900)', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Zap size={18} color={PRIMARY} /> Quick Actions
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <button onClick={() => navigate('/enrollment')} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '14px 16px', background: 'white', border: '1px solid var(--gray-200)',
+                borderRadius: 12, cursor: 'pointer', transition: 'all 0.2s'
+              }} onMouseOver={e => { e.currentTarget.style.borderColor = PRIMARY; e.currentTarget.style.transform = 'translateX(4px)'; }} onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--gray-200)'; e.currentTarget.style.transform = 'translateX(0)'; }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${PRIMARY}15, ${PRIMARY}05)`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <UserPlus size={20} color={PRIMARY} />
+                  </div>
+                  <div>
+                    <span style={{ fontWeight: 600, color: 'var(--gray-700)', display: 'block' }}>Register Student</span>
+                    <span style={{ fontSize: 11, color: 'var(--gray-400)' }}>Add new admission</span>
+                  </div>
+                </div>
+                <ChevronRight size={18} color="var(--gray-400)" />
               </button>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                <button className="btn" style={{ border: '1.5px solid rgba(255,255,255,0.2)', color: 'white', background: 'rgba(255,255,255,0.05)', borderRadius: 16, height: 54 }} onClick={() => navigate('/leads')}>Student CRM</button>
-                <button className="btn" style={{ border: '1.5px solid rgba(255,255,255,0.2)', color: 'white', background: 'rgba(255,255,255,0.05)', borderRadius: 16, height: 54 }} onClick={() => navigate('/cohorts')}>Batch Management</button>
-              </div>
-              <button className="btn" style={{ border: '1.5px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.1)', color: 'white', borderRadius: 16, height: 54, gap: 8 }} onClick={() => navigate('/payouts')}>
-                Financial Logs & Payouts <ArrowRight size={16} />
+              <button onClick={() => navigate('/leads')} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '14px 16px', background: 'white', border: '1px solid var(--gray-200)',
+                borderRadius: 12, cursor: 'pointer', transition: 'all 0.2s'
+              }} onMouseOver={e => { e.currentTarget.style.borderColor = BLUE; e.currentTarget.style.transform = 'translateX(4px)'; }} onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--gray-200)'; e.currentTarget.style.transform = 'translateX(0)'; }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(135deg, #EFF6FF, #DBEAFE)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Users size={20} color={BLUE} />
+                  </div>
+                  <div>
+                    <span style={{ fontWeight: 600, color: 'var(--gray-700)', display: 'block' }}>View All Leads</span>
+                    <span style={{ fontSize: 11, color: 'var(--gray-400)' }}>Manage prospects</span>
+                  </div>
+                </div>
+                <ChevronRight size={18} color="var(--gray-400)" />
+              </button>
+              <button onClick={() => navigate('/cohorts')} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '14px 16px', background: 'white', border: '1px solid var(--gray-200)',
+                borderRadius: 12, cursor: 'pointer', transition: 'all 0.2s'
+              }} onMouseOver={e => { e.currentTarget.style.borderColor = '#10B981'; e.currentTarget.style.transform = 'translateX(4px)'; }} onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--gray-200)'; e.currentTarget.style.transform = 'translateX(0)'; }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(135deg, #F0FDF4, #DCFCE7)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Layers size={20} color="#10B981" />
+                  </div>
+                  <div>
+                    <span style={{ fontWeight: 600, color: 'var(--gray-700)', display: 'block' }}>Manage Batches</span>
+                    <span style={{ fontSize: 11, color: 'var(--gray-400)' }}>Cohort scheduling</span>
+                  </div>
+                </div>
+                <ChevronRight size={18} color="var(--gray-400)" />
+              </button>
+              <button onClick={() => navigate('/assessment')} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '14px 16px', background: 'white', border: '1px solid var(--gray-200)',
+                borderRadius: 12, cursor: 'pointer', transition: 'all 0.2s'
+              }} onMouseOver={e => { e.currentTarget.style.borderColor = '#F59E0B'; e.currentTarget.style.transform = 'translateX(4px)'; }} onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--gray-200)'; e.currentTarget.style.transform = 'translateX(0)'; }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(135deg, #FEF3C7, #FDE68A)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ClipboardCheck size={20} color="#F59E0B" />
+                  </div>
+                  <div>
+                    <span style={{ fontWeight: 600, color: 'var(--gray-700)', display: 'block' }}>CRI Screening</span>
+                    <span style={{ fontSize: 11, color: 'var(--gray-400)' }}>Assessment tests</span>
+                  </div>
+                </div>
+                <ChevronRight size={18} color="var(--gray-400)" />
               </button>
             </div>
           </div>
 
-          <div className="card" style={{ borderRadius: 24, padding: 32, border: '1.5px solid var(--primary-50)' }}>
-            <h2 style={{ fontSize: 18, fontWeight: 800, marginBottom: 16 }}>Batch Progress</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {/* Batch Progress with Interactive Elements */}
+          <div className="card" style={{ borderRadius: 16, padding: 24, border: '1px solid var(--gray-100)', position: 'relative', overflow: 'hidden' }}>
+            {/* Decorative star */}
+            <div style={{ position: 'absolute', top: 8, right: 8, opacity: 0.12 }}>
+              <Star size={24} fill="#FBBF24" color="#FBBF24" />
+            </div>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--gray-900)', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Calendar size={18} color={PRIMARY} /> Batch Capacity
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {cohorts.length > 0 ? cohorts.slice(0, 4).map((c, i) => {
                 const enrollmentCount = c._count?.enrollments || 0;
                 const fillPercent = Math.min(100, Math.round((enrollmentCount / c.capacity) * 100));
+                const fillColor = fillPercent >= 80 ? '#10B981' : fillPercent >= 50 ? '#F59E0B' : PRIMARY;
                 return (
-                  <div key={c.cohortId}>
+                  <div key={c.cohortId} style={{ cursor: 'pointer', padding: 8, borderRadius: 8, transition: 'all 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'var(--gray-50)'} onMouseOut={e => e.currentTarget.style.background = 'transparent'}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 8 }}>
-                      <span style={{ fontWeight: 700 }}>{c.name}</span>
-                      <span style={{ color: 'var(--gray-500)' }}>{fillPercent}% Capacity</span>
+                      <span style={{ fontWeight: 600, color: 'var(--gray-700)' }}>{c.name}</span>
+                      <span style={{ color: fillColor, fontSize: 12, fontWeight: 600 }}>{fillPercent}%</span>
                     </div>
-                    <div style={{ height: 8, background: 'var(--gray-100)', borderRadius: 10, overflow: 'hidden' }}>
-                      <div style={{ width: `${fillPercent}%`, height: '100%', background: PURPLE_GRADIENTS[i % PURPLE_GRADIENTS.length], borderRadius: 10 }} />
+                    <div style={{ height: 8, background: 'var(--gray-100)', borderRadius: 6, overflow: 'hidden', position: 'relative' }}>
+                      <div style={{ width: `${fillPercent}%`, height: '100%', background: fillColor, borderRadius: 6, transition: 'width 0.5s ease' }} />
+                      {fillPercent >= 80 && (
+                        <div style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)' }}>
+                          <Award size={12} color="#10B981" />
+                        </div>
+                      )}
                     </div>
+                    <div style={{ fontSize: 11, color: 'var(--gray-400)', marginTop: 6 }}>{enrollmentCount} / {c.capacity} students</div>
                   </div>
                 );
               }) : (
-                <div style={{ textAlign: 'center', padding: '20px 0', color: 'var(--gray-400)', fontSize: 13 }}>No active batches found.</div>
+                <div style={{ textAlign: 'center', padding: 20, color: 'var(--gray-400)', fontSize: 13 }}>
+                  <div style={{ marginBottom: 8, opacity: 0.5 }}><Layers size={32} /></div>
+                  No batches yet
+                </div>
               )}
             </div>
           </div>
         </div>
 
-        {/* Live Activity Feed */}
-        <div className="card" style={{ borderRadius: 24, padding: 0, border: '1.5px solid var(--primary-50)', overflow: 'hidden' }}>
-          <div className="card-header" style={{ padding: '30px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-             <h2 style={{ fontSize: 18, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 10 }}>
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff4444', animation: 'pulse 2s infinite' }} />
-              Live Talent Pulse
-            </h2>
-            <button className="btn btn-sm btn-outline" style={{ borderRadius: 10, fontSize: 11 }}>VIEW ALL</button>
+        {/* Recent Leads with Interactive Elements */}
+        <div className="card" style={{ borderRadius: 16, padding: 0, border: '1px solid var(--gray-100)', overflow: 'hidden', position: 'relative' }}>
+          {/* Decorative star */}
+          <div style={{ position: 'absolute', top: 12, right: 12, opacity: 0.1 }}>
+            <Star size={28} fill="#FBBF24" color="#FBBF24" />
           </div>
-          <div className="table-container" style={{ padding: '0 24px 24px' }}>
-            <table style={{ borderCollapse: 'separate', borderSpacing: '0 12px' }}>
-              <thead>
-                <tr style={{ background: 'transparent' }}>
-                  <th style={{ color: 'var(--gray-400)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 1, padding: '0 16px' }}>Student</th>
-                  <th style={{ color: 'var(--gray-400)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 1 }}>Course</th>
-                  <th style={{ color: 'var(--gray-400)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 1 }}>Stage</th>
-                  <th style={{ color: 'var(--gray-400)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 1 }}>Time</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {stats.recentLeads?.map(l => (
-                  <tr key={l.leadId} onClick={() => navigate(`/leads/${l.leadId}`)} style={{ cursor: 'pointer', transition: 'all 0.3s' }} className="feed-row">
-                    <td style={{ padding: '16px', background: 'var(--primary-50)', borderRadius: '16px 0 0 16px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <div style={{ width: 44, height: 44, borderRadius: 14, background: 'white', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>{l.name[0]}</div>
-                        <div>
-                          <div style={{ fontWeight: 800, color: 'var(--gray-900)', fontSize: 14 }}>{l.name}</div>
-                          <div style={{ fontSize: 11, color: 'var(--gray-500)' }}>{l.mobile}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td style={{ background: 'var(--primary-50)', fontSize: 13, fontWeight: 600 }}><div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Layers size={14} color="var(--primary)" /> {l.courseName || 'General'}</div></td>
-                    <td style={{ background: 'var(--primary-50)' }}><span className={`badge badge-${l.status}`} style={{ fontSize: 9, fontWeight: 800, padding: '4px 10px', borderRadius: 8 }}>{l.status}</span></td>
-                    <td style={{ background: 'var(--primary-50)', fontSize: 12, color: 'var(--gray-500)' }}>{new Date(l.createdAt).toLocaleDateString()}</td>
-                    <td style={{ background: 'var(--primary-50)', borderRadius: '0 16px 16px 0', textAlign: 'right', paddingRight: 20 }}><ArrowRight size={18} color="var(--primary)" /></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div style={{ padding: '24px 28px', borderBottom: '1px solid var(--gray-50)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--gray-900)', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Clock size={18} color={PRIMARY} /> Recent Leads
+            </h3>
+            <button onClick={() => navigate('/leads')} style={{
+              fontSize: 12, fontWeight: 600, color: PRIMARY, background: 'none', border: 'none',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, transition: 'all 0.2s'
+            }} onMouseOver={e => e.currentTarget.style.transform = 'translateX(4px)'} onMouseOut={e => e.currentTarget.style.transform = 'translateX(0)'}>
+              View All <ArrowRight size={14} />
+            </button>
+          </div>
+          <div style={{ padding: '0 12px 12px' }}>
+            {stats.recentLeads?.map((l, i) => (
+              <div key={l.leadId} onClick={() => navigate(`/leads/${l.leadId}`)} style={{
+                display: 'flex', alignItems: 'center', gap: 16, padding: '14px 16px',
+                borderRadius: 12, cursor: 'pointer', transition: 'all 0.25s',
+                marginBottom: 8, background: i % 2 === 0 ? '#F8FAFC' : 'white'
+              }} onMouseOver={e => { e.currentTarget.style.background = '#F1F5F9'; e.currentTarget.style.transform = 'translateX(4px)'; }}
+                 onMouseOut={e => { e.currentTarget.style.background = i % 2 === 0 ? '#F8FAFC' : 'white'; e.currentTarget.style.transform = 'translateX(0)'; }}>
+                <div style={{
+                  width: 44, height: 44, borderRadius: 12, background: `linear-gradient(135deg, ${PRIMARY}15, ${PRIMARY}05)`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontWeight: 700, color: PRIMARY, fontSize: 16,
+                  transition: 'all 0.2s'
+                }}>
+                  {l.name.charAt(0).toUpperCase()}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 600, color: 'var(--gray-900)', fontSize: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
+                    {l.name}
+                    {l.status === 'ENROLLED' && <Award size={14} color="#10B981" />}
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--gray-400)' }}>{l.mobile}</div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <span style={{
+                    fontSize: 11, fontWeight: 600, padding: '4px 10px', borderRadius: 6,
+                    background: l.status === 'ENROLLED' ? '#F0FDF4' : l.status === 'ASSESSED' ? '#EFF6FF' : '#FEF3C7',
+                    color: l.status === 'ENROLLED' ? '#10B981' : l.status === 'ASSESSED' ? BLUE : '#D97706',
+                    display: 'inline-block'
+                  }}>
+                    {l.status}
+                  </span>
+                  <div style={{ fontSize: 11, color: 'var(--gray-400)', marginTop: 4 }}>
+                    {new Date(l.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

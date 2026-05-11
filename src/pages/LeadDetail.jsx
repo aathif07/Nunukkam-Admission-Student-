@@ -106,12 +106,12 @@ export default function LeadDetail() {
   const currentStep = getStepIndex(lead.status);
   const assessment = lead.assessment;
   const chartData = assessment ? [
-    { name: 'Comm', score: Number(assessment.commScore), fill: '#6A1C9A' },
-    { name: 'BFSI', score: Number(assessment.bfsiScore), fill: '#7B1FA2' },
-    { name: 'Discipline', score: Number(assessment.disciplineScore), fill: '#8E24AA' },
-    { name: 'Agility', score: Number(assessment.agilityScore), fill: '#9C27B0' },
-    { name: 'Career', score: Number(assessment.professionalismScore), fill: '#AB47BC' },
-    { name: 'Confidence', score: Number(assessment.confidenceScore), fill: '#CE93D8' },
+    { name: 'Comm', score: Number(assessment.commScore), fill: '#6B1EA2' },
+    { name: 'BFSI', score: Number(assessment.bfsiScore), fill: '#6B1EA2' },
+    { name: 'Discipline', score: Number(assessment.disciplineScore), fill: '#6B1EA2' },
+    { name: 'Agility', score: Number(assessment.agilityScore), fill: '#6B1EA2' },
+    { name: 'Career', score: Number(assessment.professionalismScore), fill: '#6B1EA2' },
+    { name: 'Confidence', score: Number(assessment.confidenceScore), fill: '#6B1EA2' },
   ] : [];
 
   const getAnswerText = (val) => {
@@ -173,6 +173,7 @@ export default function LeadDetail() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20 }}>
                 {[
                   ['Course', lead.courseName], ['Branch', lead.branch], ['Timing', lead.timing], ['Form No', lead.enrolmentFormNo],
+                  ['Batch', lead.cohort?.name || lead.enrollment?.cohort?.name || '—'],
                   ['Father', lead.fatherName], ['Father Occupation', lead.fatherOccupation], ['Gender', lead.gender], ['Category', lead.category],
                   ['DOB', lead.dateOfBirth ? new Date(lead.dateOfBirth).toLocaleDateString('en-IN') : null], ['Age', lead.age],
                   ['City', lead.city], ['State', lead.state], ['Source', lead.source], ['Counselor', lead.counselor?.name],

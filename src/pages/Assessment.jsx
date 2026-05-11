@@ -32,7 +32,7 @@ export default function Assessment() {
   }, [lead_id]);
 
   if (error) return (
-    <div className="public-page" style={{ background: 'linear-gradient(135deg, #38006B 0%, #4A148C 100%)' }}>
+    <div className="public-page" style={{ background: 'linear-gradient(135deg, #4A148C 0%, #6B1EA2 100%)' }}>
       <div className="public-card" style={{ maxWidth: 480, textAlign: 'center', border: 'none' }}>
         <div className="public-header" style={{ padding: '40px 32px' }}>
           <AlertCircle size={48} style={{ marginBottom: 16, opacity: 0.8 }} />
@@ -76,7 +76,7 @@ export default function Assessment() {
           {band && (
             <div style={{ background: 'var(--primary-50)', padding: 24, borderRadius: 24 }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--primary)', textTransform: 'uppercase', marginBottom: 12 }}>Assessed Band</div>
-              <span className={`badge badge-${band.toLowerCase().replace(/ /g, '-')}`} style={{ fontSize: 20, padding: '12px 32px', boxShadow: '0 10px 20px rgba(106, 28, 154, 0.2)' }}>{band}</span>
+              <span className={`badge badge-${band.toLowerCase().replace(/ /g, '-')}`} style={{ fontSize: 20, padding: '12px 32px', boxShadow: '0 10px 20px rgba(107, 30, 162, 0.2)' }}>{band}</span>
             </div>
           )}
         </div>
@@ -86,7 +86,7 @@ export default function Assessment() {
 
   // START SCREEN
   if (!started) return (
-    <div className="public-page" style={{ background: 'linear-gradient(135deg, #38006B 0%, #6A1C9A 100%)' }}>
+    <div className="public-page" style={{ background: 'linear-gradient(135deg, #4A148C 0%, #6B1EA2 100%)' }}>
       <div className="public-card" style={{ maxWidth: 540, overflow: 'hidden' }}>
         <div className="public-header" style={{ padding: '48px 32px', textAlign: 'center' }}>
           <div style={{ background: 'rgba(255,255,255,0.1)', padding: '12px 20px', borderRadius: 100, display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
@@ -118,7 +118,7 @@ export default function Assessment() {
               ))}
             </ul>
           </div>
-          <button className="btn btn-primary btn-lg" style={{ width: '100%', height: 60, fontSize: 18, background: 'var(--gradient)', color: 'white', boxShadow: '0 15px 30px rgba(106, 28, 154, 0.3)' }} onClick={() => setStarted(true)}>
+          <button className="btn btn-primary btn-lg" style={{ width: '100%', height: 60, fontSize: 18, background: 'var(--gradient)', color: 'white', boxShadow: '0 15px 30px rgba(107, 30, 162, 0.3)' }} onClick={() => setStarted(true)}>
             Start Assessment <ArrowRight size={20} />
           </button>
         </div>
@@ -214,11 +214,11 @@ export default function Assessment() {
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 48, paddingTop: 32, borderTop: '1px solid var(--gray-100)' }}>
             <button className="btn btn-secondary btn-lg" onClick={() => setStep(s => s - 1)} disabled={step === 0} style={{ padding: '12px 24px' }}><ArrowLeft size={18} /> Back</button>
             {isLast ? (
-              <button className="btn btn-primary btn-lg" onClick={handleSubmit} disabled={!allAnswered || submitting} style={{ padding: '12px 40px', background: 'var(--gradient)', color: 'white', boxShadow: '0 10px 20px rgba(106, 28, 154, 0.2)' }}>
+              <button className="btn btn-primary btn-lg" onClick={handleSubmit} disabled={!allAnswered || submitting} style={{ padding: '12px 40px', background: 'var(--gradient)', color: 'white', boxShadow: '0 10px 20px rgba(107, 30, 162, 0.2)' }}>
                 {submitting ? <span className="spinner" /> : <><CheckCircle size={18} /> Finish Assessment</>}
               </button>
             ) : (
-              <button className="btn btn-primary btn-lg" onClick={() => { setStep(s => s + 1); window.scrollTo(0, 0); }} disabled={!allAnswered} style={{ padding: '12px 40px', background: 'var(--gradient)', color: 'white', boxShadow: '0 10px 20px rgba(106, 28, 154, 0.2)' }}>
+              <button className="btn btn-primary btn-lg" onClick={() => { setStep(s => s + 1); window.scrollTo(0, 0); }} disabled={!allAnswered} style={{ padding: '12px 40px', background: 'var(--gradient)', color: 'white', boxShadow: '0 10px 20px rgba(107, 30, 162, 0.2)' }}>
                 Next Section <ArrowRight size={18} />
               </button>
             )}

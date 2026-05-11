@@ -113,7 +113,18 @@ export default function EnrollmentForm() {
         declaration_date: new Date().toISOString(),
       };
       const res = await api.post('/leads', body);
-      toast.success('Student registered successfully! Assessment link sent.');
+      const assessmentLink = res.data.assessment_link;
+      if (assessmentLink) {
+        // Copy link to clipboard
+        try {
+          await navigator.clipboard.writeText(assessmentLink);
+          toast.success('Student registered! Assessment link copied to clipboard.');
+        } catch {
+          toast.success(`Student registered! Assessment link: ${assessmentLink}`);
+        }
+      } else {
+        toast.success('Student registered successfully!');
+      }
       navigate(`/leads/${res.data.lead_id}`);
     } catch (err) { toast.error(err.response?.data?.error || 'Registration failed'); }
     finally { setSubmitting(false); }

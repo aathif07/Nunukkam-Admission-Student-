@@ -28,16 +28,24 @@ export default function PaymentEntry() {
   });
 
   useEffect(() => {
-    api.get(`/leads/${id}`).then(r => { 
-      setLead(r.data); 
+    api.get(`/leads/${id}`).then(r => {
+      setLead(r.data);
       setPayerName(r.data.name);
-      // Fetch cohorts and auto-select matching one
+      // Fetch cohorts and auto-select
       api.get('/cohorts', { params: { active: true } }).then(cr => {
         setCohorts(cr.data);
-        // Auto-select cohort matching lead's course + branch + timing
-        const match = cr.data.find(c => 
-          c.courseName === r.data.courseName && 
-          c.branch === r.data.branch && 
+        // First check if lead has a saved cohortId from registration
+        if (r.data.cohortId) {
+          const savedCohort = cr.data.find(c => c.cohortId === r.data.cohortId);
+          if (savedCohort) {
+            setCohortId(savedCohort.cohortId);
+            return;
+          }
+        }
+        // Fallback: auto-select cohort matching lead's course + branch + timing
+        const match = cr.data.find(c =>
+          c.courseName === r.data.courseName &&
+          c.branch === r.data.branch &&
           c.timing === r.data.timing
         );
         if (match) setCohortId(match.cohortId);

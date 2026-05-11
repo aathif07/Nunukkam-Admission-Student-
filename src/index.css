@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --primary: #6A1C9A;
+  --primary: #6B1EA2;
   --primary-light: #9C4DCC;
-  --primary-dark: #38006B;
+  --primary-dark: #4A148C;
   --primary-50: #F3E5F5;
   --primary-100: #E1BEE7;
   --primary-200: #CE93D8;
-  --primary-700: #6A1C9A;
+  --primary-700: #6B1EA2;
   --primary-800: #5B21B6;
   --primary-900: #4A148C;
 
-  --secondary: #7B1FA2;
-  --accent: #BA68C8;
-  --gradient: linear-gradient(135deg, #6A1C9A 0%, #AB47BC 100%);
+  --secondary: #6B1EA2;
+  --accent: #6B1EA2;
+  --gradient: linear-gradient(135deg, #6B1EA2 0%, #6B1EA2 100%);
 
   --gray-50: #F9FAFB;
   --gray-100: #F3F4F6;
@@ -26,12 +26,12 @@
   --gray-800: #1F2937;
   --gray-900: #111827;
 
-  --success: #6A1C9A; /* Replaced green with purple variations */
-  --success-light: #dcfce7;
-  --warning: #8E24AA;
-  --warning-light: #fef9c3;
-  --danger: #4A148C;
-  --danger-light: #fee2e2;
+  --success: #6B1EA2;
+  --success-light: #F3E5F5;
+  --warning: #6B1EA2;
+  --warning-light: #F3E5F5;
+  --danger: #DC2626;
+  --danger-light: #FEE2E2;
   --info: #2563eb;
   --info-light: #dbeafe;
   --orange: #f97316;
@@ -47,7 +47,7 @@
   --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-  --shadow-brand: 0 10px 15px -3px rgba(106,28,154,0.2), 0 4px 6px -2px rgba(106,28,154,0.1);
+  --shadow-brand: 0 10px 15px -3px rgba(107,30,162,0.2), 0 4px 6px -2px rgba(107,30,162,0.1);
 
   --sidebar-width: 260px;
   --header-height: 64px;
@@ -72,24 +72,25 @@ body {
 /* ─── Layout ─── */
 .app-layout { display: flex; min-height: 100vh; }
 .sidebar {
-  width: var(--sidebar-width); background: linear-gradient(180deg, var(--primary-900) 0%, var(--primary) 100%);
-  color: white; position: fixed; top: 0; left: 0; bottom: 0; z-index: 40;
+  width: var(--sidebar-width); background: white;
+  color: var(--gray-800); position: fixed; top: 0; left: 0; bottom: 0; z-index: 40;
   display: flex; flex-direction: column; transition: transform 0.3s ease;
   overflow-y: auto; scrollbar-width: none;
+  border-right: 1px solid var(--gray-200);
 }
 .sidebar::-webkit-scrollbar { display: none; }
-.sidebar-logo { padding: 20px 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.sidebar-logo h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
-.sidebar-logo span { font-size: 10px; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: var(--radius-full); font-weight: 500; }
+.sidebar-logo { padding: 20px 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--gray-100); }
+.sidebar-logo h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; color: var(--primary); }
+.sidebar-logo span { font-size: 10px; background: var(--primary-50); color: var(--primary); padding: 2px 8px; border-radius: var(--radius-full); font-weight: 500; }
 .sidebar-nav { padding: 16px 12px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.sidebar-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); padding: 16px 12px 8px; font-weight: 600; }
+.sidebar-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray-400); padding: 16px 12px 8px; font-weight: 600; }
 .sidebar-link {
   display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius);
-  color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500;
+  color: var(--gray-600); text-decoration: none; font-size: 14px; font-weight: 500;
   transition: var(--transition); cursor: pointer; border: none; background: none; width: 100%; text-align: left;
 }
-.sidebar-link:hover { background: rgba(255,255,255,0.1); color: white; }
-.sidebar-link.active { background: rgba(255,255,255,0.15); color: white; box-shadow: inset 3px 0 0 white; }
+.sidebar-link:hover { background: var(--gray-50); color: var(--primary); }
+.sidebar-link.active { background: #EFF6FF; color: #2563EB; box-shadow: inset 3px 0 0 #2563EB; }
 .sidebar-link svg { width: 20px; height: 20px; flex-shrink: 0; }
 
 .main-content { margin-left: var(--sidebar-width); flex: 1; min-height: 100vh; }
