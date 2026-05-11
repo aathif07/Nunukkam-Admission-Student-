@@ -5,8 +5,9 @@ import * as yup from 'yup';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { UserPlus, ChevronRight, ChevronLeft, BookOpen, User, Phone, GraduationCap, Briefcase, Globe, MessageSquare, Users, CheckCircle } from 'lucide-react';
+import { API_BASE_URL } from '../api';
 
-const API = axios.create({ baseURL: import.meta.env.VITE_API_URL || 'http://localhost:4000/api' });
+const API = axios.create({ baseURL: API_BASE_URL });
 const schema = yup.object({ name: yup.string().min(3).max(100).required('Name is required'), mobile: yup.string().matches(/^\d{10}$/, 'Must be 10 digits').required('Mobile is required') });
 const CATEGORIES = ['BC', 'MBC', 'SC', 'ST', 'GEN'];
 const STATES = ['Tamil Nadu', 'Kerala', 'Karnataka', 'Andhra Pradesh', 'Telangana', 'Maharashtra', 'Delhi', 'Other'];

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../api';
+import api, { API_ORIGIN } from '../api';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Send, CreditCard, Download, CheckCircle, ClipboardList, Users, UserCheck, FileText, Shield, GraduationCap, BarChart3, HelpCircle, Briefcase, Globe, Info, ExternalLink, ChevronRight } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
@@ -306,7 +306,7 @@ export default function LeadDetail() {
             <div className="card-header"><h2>CRI Result — Career Readiness Index</h2>
               <div style={{ display: 'flex', gap: 8 }}>
                 <button className="btn btn-sm btn-outline" onClick={() => setShowDetails(!showDetails)}><HelpCircle size={14} /> {showDetails ? 'Hide Q&A' : 'View Detailed Q&A'}</button>
-                {assessment?.scorecardPdfUrl && <a href={`http://localhost:4000${assessment.scorecardPdfUrl}`} target="_blank" className="btn btn-sm btn-outline"><Download size={14} /> Download PDF</a>}
+                {assessment?.scorecardPdfUrl && <a href={`${API_ORIGIN}${assessment.scorecardPdfUrl}`} target="_blank" className="btn btn-sm btn-outline"><Download size={14} /> Download PDF</a>}
                 {lead.status === 'assessed' && <button className="btn btn-primary btn-sm" onClick={() => { updateStatus('counseled'); setActiveTab('counselor'); }}>Counseling <ChevronRight size={14} /></button>}
               </div>
             </div>

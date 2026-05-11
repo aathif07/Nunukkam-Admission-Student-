@@ -15,6 +15,9 @@ if (API_BASE.includes('localhost') && window.location.hostname === 'demoenrollme
   console.error("🚨 CRITICAL: Frontend is trying to connect to a localhost API from a production domain. Please set the VITE_API_URL environment variable in Dokploy (under Environment) and rebuild the frontend.");
 }
 
+export const API_BASE_URL = API_BASE;
+export const API_ORIGIN = API_BASE.replace(/\/api\/?$/, '');
+
 const api = axios.create({ baseURL: API_BASE });
 
 api.interceptors.request.use((config) => {
