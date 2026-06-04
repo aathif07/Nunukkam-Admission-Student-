@@ -7,10 +7,10 @@ if (envApiUrl && !envApiUrl.endsWith('/api')) {
   envApiUrl = envApiUrl.replace(/\/$/, '') + '/api';
 }
 
-let API_BASE = envApiUrl || 'http://localhost:4000/api';
+let API_BASE = envApiUrl ? envApiUrl : 'http://localhost:4000/api';
 
 if (API_BASE.includes('localhost') && window.location.hostname === 'demoenrollment.nunukkam.com') {
-  API_BASE = 'https://demoenrollmentbackend.nunukkam.com/api';
+  API_BASE = 'https://apidemo.nunukkam.com/api';
 } else if (API_BASE.includes('localhost') && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
   console.error("🚨 CRITICAL: Frontend is trying to connect to a localhost API from a production domain. Please set the VITE_API_URL environment variable in Dokploy (under Environment) and rebuild the frontend.");
 }
